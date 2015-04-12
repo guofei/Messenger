@@ -10,26 +10,40 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-	var statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
-
 	func applicationDidFinishLaunching(aNotification: NSNotification) {
 		// Insert code here to initialize your application
+		setStatusMenu()
+	}
+
+	var statusItem = NSStatusBar.systemStatusBar().statusItemWithLength(-1)
+	private func setStatusMenu() {
 		let menu = NSMenu()
-		self.statusItem.title = "Messenger"
-		self.statusItem.highlightMode = true
-		self.statusItem.menu = menu
-		
-		let menuItem = NSMenuItem()
-		menuItem.title = "Quit"
-		menuItem.action = Selector("quit:")
-		menu.addItem(menuItem)
+		let img = NSImage(named: "StatusBar")
+		statusItem.image = img
+		statusItem.highlightMode = true
+		statusItem.menu = menu
+		let quitItem = NSMenuItem()
+		quitItem.title = "Quit"
+		quitItem.action = Selector("quit:")
+		menu.addItem(quitItem)
 	}
 
 	func applicationWillTerminate(aNotification: NSNotification) {
 		// Insert code here to tear down your application
 	}
 
-	@IBAction func quit(sender: NSButton) {
+	func applicationShouldHandleReopen(sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+		if !flag {
+			for window in sender.windows{
+				if let w = window as? NSWindow{
+					w.makeKeyAndOrderFront(self)
+				}
+			}
+		}
+		return true
+	}
+
+	func quit(sender: NSButton) {
 		NSApplication.sharedApplication().terminate(self)
 	}
 }
