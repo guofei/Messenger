@@ -19,6 +19,7 @@ class ViewController: NSViewController {
 	private func loadWebView() {
 		let url = NSURL(string: "https://www.messenger.com")
 		let request = NSURLRequest(URL: url!)
+		messengerView?.UIDelegate = self
 		messengerView?.mainFrame.loadRequest(request)
 	}
 
@@ -34,6 +35,13 @@ class ViewController: NSViewController {
 		}
 	}
 
-
+	override func webView(sender: WebView!, runOpenPanelForFileButtonWithResultListener resultListener: WebOpenPanelResultListener!) {
+		var openPanel = NSOpenPanel()
+		openPanel.beginWithCompletionHandler { (result) -> Void in
+			if result == NSFileHandlingPanelOKButton {
+				resultListener.chooseFilename(openPanel.URL!.path)
+			}
+		}
+	}
 }
 
