@@ -400,6 +400,7 @@
 				28EE49211ADA5CC500EAD4FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		28EE49221ADA5CC500EAD4FA /* Build configuration list for PBXNativeTarget "MessengerTests" */ = {
 			isa = XCConfigurationList;
@@ -408,6 +409,7 @@
 				28EE49241ADA5CC500EAD4FA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

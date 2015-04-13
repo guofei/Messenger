@@ -20,6 +20,7 @@ class ViewController: NSViewController {
 		let url = NSURL(string: "https://www.messenger.com")
 		let request = NSURLRequest(URL: url!)
 		messengerView?.UIDelegate = self
+		messengerView?.policyDelegate = self
 		messengerView?.mainFrame.loadRequest(request)
 	}
 
@@ -42,6 +43,22 @@ class ViewController: NSViewController {
 				resultListener.chooseFilename(openPanel.URL!.path)
 			}
 		}
+	}
+
+	/*
+	override func webView(webView: WebView!, willPerformDragDestinationAction action: WebDragDestinationAction, forDraggingInfo draggingInfo: NSDraggingInfo!) {
+	}
+	*/
+
+	override func webView(sender: WebView!, createWebViewWithRequest request: NSURLRequest!) -> WebView! {
+		let url = request.URL?.absoluteURL
+		NSWorkspace.sharedWorkspace().openURL(url!)
+		return nil
+	}
+
+	override func webView(webView: WebView!, decidePolicyForNewWindowAction actionInformation: [NSObject : AnyObject]!, request: NSURLRequest!, newFrameName frameName: String!, decisionListener listener: WebPolicyDecisionListener!) {
+		let url = request.URL?.absoluteURL
+		NSWorkspace.sharedWorkspace().openURL(url!)
 	}
 }
 
